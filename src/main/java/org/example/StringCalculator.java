@@ -25,8 +25,7 @@ public class StringCalculator {
             for (String number : numberString.split(",")) {
                 int currentParsedNumber = Integer.parseInt(number);
                 if (currentParsedNumber < 0) negativeNumbers.add(currentParsedNumber);
-                else if (currentParsedNumber > 1000) {}
-                else sumNumbers += currentParsedNumber;
+                else if (currentParsedNumber <= 1000) sumNumbers += currentParsedNumber;
             }
 
             if (!negativeNumbers.isEmpty()) throw new Exception("negatives not allowed: " + negativeNumbers);
