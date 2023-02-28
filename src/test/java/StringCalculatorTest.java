@@ -1,15 +1,16 @@
+import static org.assertj.core.api.Assertions.*;
 import org.example.StringCalculator;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class StringCalculatorTest {
     StringCalculator stringCalculator = new StringCalculator();
+
     @Test
     public void addTest_EmptyString_ReturnZero() throws Exception {
         int expected = 0;
         int actual = stringCalculator.add("");
 
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -17,7 +18,7 @@ public class StringCalculatorTest {
         int expected = 5;
         int actual = stringCalculator.add("5");
 
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -25,7 +26,7 @@ public class StringCalculatorTest {
         int expected = 3;
         int actual = stringCalculator.add("1,2");
 
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -33,50 +34,34 @@ public class StringCalculatorTest {
         int expected = 7;
         int actual = stringCalculator.add("1,\n3,3");
 
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void addTest_NegativeNumberInString_ThrowException() {
-        try {
-            stringCalculator.add("-1");
-        } catch (Exception e) {
-            assertEquals("negatives not allowed: [-1]", e.getMessage());
-        }
+        assertThatThrownBy(() -> stringCalculator.add("-1,1,3")).hasMessage("negatives not allowed: [-1]");
     }
 
     @Test
-    public void addTest_MultipleNegativeNumbersInString_ThrowExceptionShowAllNumbers() {
-        try {
-            stringCalculator.add("-1,-2,-2");
-        } catch (Exception e) {
-            assertEquals("negatives not allowed: [-1, -2, -2]", e.getMessage());
-        }
+    public void addTest_MultipleNegativeNumbersInString_ThrowExceptionShowAllNumbers() throws Exception {
+        assertThatThrownBy(() -> stringCalculator.add("-1,-2,-2")).hasMessageStartingWith("negatives");
     }
 
     @Test
-    public void addTest_ReturnHowManyTimesAddMethodIsInvoked() {
-        try {
-            int actual = 3;
-            int operation = stringCalculator.add("2,2") + stringCalculator.add("1,4") + stringCalculator.add("1,4");
-            int expected = stringCalculator.getCalledCount();
+    public void addTest_ReturnHowManyTimesAddMethodIsInvoked() throws Exception {
+        int actual = 3;
+        int operation = stringCalculator.add("2,2") + stringCalculator.add("1,4") + stringCalculator.add("1,4");
+        int expected = stringCalculator.getCalledCount();
 
-            assertEquals(expected, actual);
-        } catch (Exception e) {
-            System.out.println("This should not happen");
-        }
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    public void addTest_StringContainsNumberGreaterThan1000_IgnoreThoseNumbers_ReturnSum() {
-        try {
-            int expected = 5;
-            int actual = stringCalculator.add("2,1212,3");
+    public void addTest_StringContainsNumberGreaterThan1000_IgnoreThoseNumbers_ReturnSum() throws Exception {
+        int expected = 5;
+        int actual = stringCalculator.add("2,1212,3");
 
-            assertEquals(expected, actual);
-        } catch (Exception e) {
-            System.out.println("This should not happen");
-        }
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -84,7 +69,7 @@ public class StringCalculatorTest {
         int expected = 10;
         int actual = stringCalculator.add("//[;]\n1;4;5");
 
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -92,6 +77,7 @@ public class StringCalculatorTest {
         int expected = 6;
         int actual = stringCalculator.add("//[;]\n1;2;3");
 
-        assertEquals(expected, actual);
+//        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 }
