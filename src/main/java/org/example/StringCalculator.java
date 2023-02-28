@@ -6,33 +6,8 @@ import java.util.regex.Pattern;
 public class StringCalculator {
     private int addCalledalledCount = 0;
 
-    public int getAddCalledalledCount() {
-        return addCalledalledCount;
-    }
-
     public int getCalledCount() {
         return addCalledalledCount;
-    }
-
-    public String getNumberStringWithDelimitersReplaced(String numbers) {
-        String numberStringWithReplacedDelimiter = "";
-        String numberString = numbers.substring(numbers.indexOf("]\n")+1).replace("\n","");
-        if (numbers.startsWith("//")) {
-            String delimiter = "";
-            String delimittedString = numbers.substring(numbers.indexOf("["), numbers.indexOf("\n"));
-
-            for (String delimit : delimittedString.replace("[","").split("]")) {
-                numberString = numberString.replaceAll(Pattern.quote(delimit), ",");
-            }
-
-            numberString = numberString.replaceAll("\n", "");
-            numberStringWithReplacedDelimiter = numberString;
-
-        } else {
-            numbers = numbers.replaceAll("\n", "");
-            numberStringWithReplacedDelimiter = numbers;
-        }
-        return numberStringWithReplacedDelimiter;
     }
 
     public int add(String numbers) throws Exception {
@@ -57,5 +32,26 @@ public class StringCalculator {
             if (!negativeNumbers.isEmpty()) throw new Exception("negatives not allowed: " + negativeNumbers);
             return sumNumbers;
         }
+    }
+
+    public String getNumberStringWithDelimitersReplaced(String numbers) {
+        String numberStringWithReplacedDelimiter = "";
+        String numberString = numbers.substring(numbers.indexOf("]\n")+1).replace("\n","");
+        if (numbers.startsWith("//")) {
+            String delimiter = "";
+            String delimittedString = numbers.substring(numbers.indexOf("["), numbers.indexOf("\n"));
+
+            for (String delimit : delimittedString.replace("[","").split("]")) {
+                numberString = numberString.replaceAll(Pattern.quote(delimit), ",");
+            }
+
+            numberString = numberString.replaceAll("\n", "");
+            numberStringWithReplacedDelimiter = numberString;
+
+        } else {
+            numbers = numbers.replaceAll("\n", "");
+            numberStringWithReplacedDelimiter = numbers;
+        }
+        return numberStringWithReplacedDelimiter;
     }
 }
