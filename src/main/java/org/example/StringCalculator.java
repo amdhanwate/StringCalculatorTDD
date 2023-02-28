@@ -14,8 +14,8 @@ public class StringCalculator {
         return addCalledalledCount;
     }
 
-    public ArrayList<String> getDelimiterAndNumberString(String numbers) {
-        ArrayList<String> numberStringAndDelimiter = new ArrayList<>();
+    public String getNumberStringWithDelimitersReplaced(String numbers) {
+        String numberStringWithReplacedDelimiter = "";
         String numberString = numbers.substring(numbers.indexOf("]\n")+1).replace("\n","");
         if (numbers.startsWith("//")) {
             String delimiter = "";
@@ -26,21 +26,18 @@ public class StringCalculator {
             }
 
             numberString = numberString.replaceAll("\n", "");
-            numberStringAndDelimiter.add(numberString);
-            numberStringAndDelimiter.add(delimiter);
+            numberStringWithReplacedDelimiter = numberString;
 
         } else {
             numbers = numbers.replaceAll("\n", "");
-            numberStringAndDelimiter.add(numbers);
-            numberStringAndDelimiter.add(",");
+            numberStringWithReplacedDelimiter = numbers;
         }
-        return numberStringAndDelimiter;
+        return numberStringWithReplacedDelimiter;
     }
 
     public int add(String numbers) throws Exception {
         this.addCalledalledCount += 1;
-        String numberString = getDelimiterAndNumberString(numbers).get(0);
-        String delimiter = getDelimiterAndNumberString(numbers).get(1);
+        String numberString = getNumberStringWithDelimitersReplaced(numbers);
 
         if (numberString.isEmpty()) return 0;
         else if (numberString.length() == 1) {
@@ -58,7 +55,7 @@ public class StringCalculator {
             }
 
             if (!negativeNumbers.isEmpty()) throw new Exception("negatives not allowed: " + negativeNumbers);
-            else return sumNumbers;
+            return sumNumbers;
         }
     }
 }
