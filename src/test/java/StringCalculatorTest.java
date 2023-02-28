@@ -2,8 +2,6 @@ import org.example.StringCalculator;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class StringCalculatorTest {
     StringCalculator stringCalculator = new StringCalculator();
     @Test
@@ -39,18 +37,18 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void addTest_NegativeNumberInString_ThrowException() throws Exception {
+    public void addTest_NegativeNumberInString_ThrowException() {
         try {
-            int actual = stringCalculator.add("-1");
+            stringCalculator.add("-1");
         } catch (Exception e) {
             assertEquals("negatives not allowed: [-1]", e.getMessage());
         }
     }
 
     @Test
-    public void addTest_MultipleNegativeNumbersInString_ThrowExceptionShowAllNumbers() throws Exception {
+    public void addTest_MultipleNegativeNumbersInString_ThrowExceptionShowAllNumbers() {
         try {
-            int actual = stringCalculator.add("-1,-2,-2");
+            stringCalculator.add("-1,-2,-2");
         } catch (Exception e) {
             assertEquals("negatives not allowed: [-1, -2, -2]", e.getMessage());
         }

@@ -25,8 +25,6 @@ public class StringCalculator {
                 numberString = numberString.replaceAll(Pattern.quote(delimit), ",");
             }
 
-            System.out.println(numberString);
-
             numberString = numberString.replaceAll("\n", "");
             numberStringAndDelimiter.add(numberString);
             numberStringAndDelimiter.add(delimiter);
