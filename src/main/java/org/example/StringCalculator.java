@@ -16,23 +16,27 @@ public class StringCalculator {
 
     public ArrayList<String> getDelimiterAndNumberString(String numbers) {
         ArrayList<String> numberStringAndDelimiter = new ArrayList<>();
+        String numberString = numbers.substring(numbers.indexOf("]\n")+1).replace("\n","");
         if (numbers.startsWith("//")) {
             String delimiter = "";
-            String[] splittedString = numbers.split("\n");
-            String[] delimiters = splittedString[0].substring(2).trim().split("\\]\\[");
-            for (String delim : delimiters) {
-                delimiter += delim;
+            String delimittedString = numbers.substring(numbers.indexOf("["), numbers.indexOf("\n"));
+
+            for (String delimit : delimittedString.replace("[","").split("]")) {
+                numberString = numberString.replaceAll(Pattern.quote(delimit), ",");
             }
 
-            numberStringAndDelimiter.add(splittedString[1]);
+            System.out.println(numberString);
+
+            numberString = numberString.replaceAll("\n", "");
+            numberStringAndDelimiter.add(numberString);
             numberStringAndDelimiter.add(delimiter);
 
-            return numberStringAndDelimiter;
         } else {
+            numbers = numbers.replaceAll("\n", "");
             numberStringAndDelimiter.add(numbers);
             numberStringAndDelimiter.add(",");
-            return numberStringAndDelimiter;
         }
+        return numberStringAndDelimiter;
     }
 
     public int add(String numbers) throws Exception {
@@ -48,7 +52,7 @@ public class StringCalculator {
             int sumNumbers = 0;
             ArrayList<Integer> negativeNumbers = new ArrayList<>();
 
-            for (String number : numberString.replaceAll(delimiter, ",").split(",")) {
+            for (String number : numberString.split(",")) {
                 int currentParsedNumber = Integer.parseInt(number);
                 if (currentParsedNumber < 0) negativeNumbers.add(currentParsedNumber);
                 else if (currentParsedNumber > 1000) {}

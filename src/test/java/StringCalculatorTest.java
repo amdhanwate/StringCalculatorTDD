@@ -33,7 +33,7 @@ public class StringCalculatorTest {
     @Test
     public void addTest_NewlineBetweenNumbers_ReturnSumOfAll() throws Exception {
         int expected = 7;
-        int actual = stringCalculator.add("1\n3,3");
+        int actual = stringCalculator.add("1,\n3,3");
 
         assertEquals(expected, actual);
     }
@@ -84,15 +84,15 @@ public class StringCalculatorTest {
     @Test
     public void addTest_StringContainsDelimiterOtherThanComma_ReturnSumUsingTheDelimiter() throws Exception {
         int expected = 10;
-        int actual = stringCalculator.add("//;\n1;4;5");
+        int actual = stringCalculator.add("//[;]\n1;4;5");
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void addTest_StringContainsAnyLengthDelimiter_ReturnSumUsingTheDelimiter() throws Exception {
-        int expected = 10;
-        int actual = stringCalculator.add("//aa\n1aa4aa5");
+        int expected = 6;
+        int actual = stringCalculator.add("//[;]\n1;2;3");
 
         assertEquals(expected, actual);
     }
