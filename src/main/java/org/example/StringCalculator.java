@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
-    private int addCalledalledCount = 0;
+    private int addCallCount = 0;
 
     public int getCalledCount() {
-        return addCalledalledCount;
+        return addCallCount;
     }
 
     public int add(String numbers) throws Exception {
-        this.addCalledalledCount += 1;
+        this.addCallCount += 1;
         String numberString = getNumberStringWithDelimitersReplaced(numbers);
 
         if (numberString.isEmpty()) return 0;
@@ -37,7 +37,6 @@ public class StringCalculator {
         String numberStringWithReplacedDelimiter = "";
         String numberString = numbers.substring(numbers.indexOf("]\n")+1).replace("\n","");
         if (numbers.startsWith("//")) {
-            String delimiter = "";
             String delimittedString = numbers.substring(numbers.indexOf("["), numbers.indexOf("\n"));
 
             for (String delimit : delimittedString.replace("[","").split("]")) {
